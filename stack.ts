@@ -18,10 +18,10 @@ export class Stack<T> implements Iterable<T> {
   clear(): void {
     this._array = [];
   }
-  pop(): T {
+  pop(): T | undefined {
     return this._array.pop();
   }
-  push(value): void {
+  push(value: T): void {
     this._array.push(value);
   }
   get size(): number {

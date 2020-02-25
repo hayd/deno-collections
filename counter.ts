@@ -20,7 +20,9 @@ export class Counter<T> extends DefaultDict<T, number> {
 
   // TODO return Counter<T>
   mostCommon(n: number): Map<T, number> {
-    return new Map([...this.entries()].sort((a, b) => b[1] - a[1]).slice(0, n));
+    return new Map(
+      [...this.entries()].sort((a, b) => b[1] - a[1]).slice(0, n)
+    );
   }
 
   // TODO update

@@ -10,7 +10,11 @@ export class DefaultDict<T, D> extends Map<T, D> {
   // [Symbol.toStringTag] = "DefaultDict"
   default: D;
   constructor(default_: D, m?: Map<T, D>) {
-    super(m);
+    if (m !== undefined) {
+      super(m);
+    } else {
+      super(m);
+    }
     this.default = default_;
   }
   get(key: T): D {

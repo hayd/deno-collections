@@ -1,21 +1,21 @@
-import { Stack } from "./stack.ts";
-import { test, assert } from "./deps.ts";
+import { Stack } from "./mod.ts";
+import { assertEquals } from "./deps.ts";
 
-test(function stack() {
+Deno.test(function stack() {
   const s = new Stack([1, 2, 3]);
-  // assert.equal(s.peek(), 3);
+  // assertEquals(s.peek(), 3);
   s.push(4);
-  assert.equal(s.size, 4);
-  assert.equal(s.pop(), 4);
-  assert.equal(s.pop(), 3);
-  assert.equal(s.pop(), 2);
-  assert.equal(s.pop(), 1);
-  assert.equal(s.pop(), undefined);
-  assert.equal(s.size, 0);
+  assertEquals(s.size, 4);
+  assertEquals(s.pop(), 4);
+  assertEquals(s.pop(), 3);
+  assertEquals(s.pop(), 2);
+  assertEquals(s.pop(), 1);
+  assertEquals(s.pop(), undefined);
+  assertEquals(s.size, 0);
 });
 
-test(function stackIter() {
+Deno.test(function stackIter() {
   const s = new Stack([1, 2, 3]);
   const arr = [...s];
-  assert.equal(arr, [3, 2, 1]);
+  assertEquals(arr, [3, 2, 1]);
 });

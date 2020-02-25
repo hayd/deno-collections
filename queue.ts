@@ -16,10 +16,10 @@ export class Queue<T> implements Iterable<T> {
   clear(): void {
     this._array = [];
   }
-  shift(): T {
+  shift(): T | undefined {
     return this._array.shift();
   }
-  push(value): void {
+  push(value: T): void {
     this._array.push(value);
   }
   get size(): number {

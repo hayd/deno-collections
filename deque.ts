@@ -20,20 +20,20 @@ export class Deque<T> implements Iterable<T> {
   clear(): void {
     this._array = [];
   }
-  shift(): T {
+  shift(): T | undefined {
     return this._array.shift();
   }
-  pop(): T {
+  pop(): T | undefined {
     return this._array.pop();
   }
-  push(value): void {
-    if (this.isFull) {
+  push(value: T): void {
+    if (this.isFull()) {
       this._array.shift();
     }
     this._array.push(value);
   }
-  unshift(value): void {
-    if (this.isFull) {
+  unshift(value: T): void {
+    if (this.isFull()) {
       this._array.pop();
     }
     this._array.unshift(value);
