@@ -2,43 +2,15 @@
 
 /*
  * Stack is a first-in-last-out data structure.
- * Stack supports push and pop the right.
+ * Stack supports `push` to the end and `pop` from the end.
  *
- * Create by optionally passing an Iterable:
- *
- *      const s = new Stack([1, 2, 3])
+ *      const s = [1, 2, 3]
  *      console.log(s.pop())  // 3
  *
  */
-export class Stack<T> implements Iterable<T> {
-  private _array: T[];
-  constructor(ls?: Iterable<T>) {
-    this._array = ls ? [...ls] : [];
-  }
-  clear(): void {
-    this._array = [];
-  }
-  pop(): T | undefined {
-    return this._array.pop();
-  }
-  push(value: T): void {
-    this._array.push(value);
-  }
-  get size(): number {
-    return this._array.length;
-  }
 
-  [Symbol.iterator]() {
-    const arr = this._array;
-    let index = arr.length;
-    return {
-      next: function() {
-        index--;
-        return {
-          done: index < 0,
-          value: arr[index]
-        };
-      }
-    };
-  }
+export interface Stack<T> {
+  pop(): T | undefined;
+  push(value: T): void;
+  length?: number;
 }

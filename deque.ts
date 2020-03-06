@@ -1,3 +1,16 @@
+export class FullError extends Error {
+  constructor(message?: string) {
+    super(message);
+    this.name = "FullError";
+  }
+}
+
+export interface DequeOptions<T> {
+  size: number;
+  it?: Iterable<T>;
+  throwIfFull?: boolean;
+}
+
 /*
  * Deque is an Array-like structure with a max size.
  *
@@ -10,12 +23,11 @@
 export class Deque<T> implements Iterable<T> {
   private _array: T[];
   private _maxSize: number;
-  constructor(size: number, ls?: Iterable<T>) {
-    this._array = ls ? [...ls].slice(-size) : [];
-    this._maxSize = size;
-  }
-  private isFull(): boolean {
-    return this._array.length == this._maxSize;
+  private _throwIfFull: boolean;
+  constructor(options: DequeOptions<T>) {
+    this._array = options.it ? [...options.it].slice(-options.size) : [];
+    this._maxSize = options.size;
+    this._throwIfFull = !!options.throwIfFull;
   }
   clear(): void {
     this._array = [];
@@ -27,19 +39,33 @@ export class Deque<T> implements Iterable<T> {
     return this._array.pop();
   }
   push(value: T): void {
-    if (this.isFull()) {
-      this._array.shift();
+    if (this.length == this.maxSize) {
+      if (this._throwIfFull) {
+        throw new FullError();
+      } else {
+        this._array.shift();
+        // FIXME should we be returning this value in this case?
+      }
     }
     this._array.push(value);
   }
   unshift(value: T): void {
-    if (this.isFull()) {
-      this._array.pop();
+    if (this.length == this.maxSize) {
+      if (this._throwIfFull) {
+        throw new FullError();
+      } else {
+        this._array.pop();
+        // FIXME should we be returning this value in this case?
+      }
     }
     this._array.unshift(value);
   }
-  get size(): number {
+  get length(): number {
     return this._array.length;
+  }
+
+  get maxSize(): number {
+    return this._maxSize;
   }
 
   [Symbol.iterator]() {

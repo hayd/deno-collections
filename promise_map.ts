@@ -1,23 +1,33 @@
 import { DeferredQueue } from "./deferred_queue.ts";
 
+export interface PromiseMapOptions {
+  concurrency?: number;
+  collect?: boolean;
+}
+
 export async function promiseMap<T, U>(
-  it: Iterable<T>,
+  it: Iterable<T> | AsyncIterable<T>,
   fn: (t: T) => Promise<U>,
-  concurrency: number
+  options: PromiseMapOptions
 ): Promise<Array<U>> {
-  const q = new DeferredQueue<void>(concurrency, [], () => undefined);
+  const q = new DeferredQueue<void>(
+    { maxPoolSize: options.concurrency, creator: () => undefined }
+  );
   const results: Array<U> = [];
   let err: any;
-  for (const i of it) {
+  for await (const i of it) {
     await q.pop();
     fn(i)
       .then(u => {
-        results.push(u);
+        if (options.collect) {
+          results.push(u);
+        }
       })
       .catch(e => {
+        // should we failfast?
         err = e;
       })
-      .then(() => q.push());
+      .finally(() => q.push());
   }
   await q.untilEmpty();
   if (err) throw err;

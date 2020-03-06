@@ -4,10 +4,9 @@ on: [push, pull_request]
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v2
       - uses: denolib/setup-deno@v1.2.0
         with:
-          deno-version: 0.34.0
-      - run: deno test
+          deno-version: 0.35.0
+      - run: deno test --allow-net

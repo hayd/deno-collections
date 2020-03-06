@@ -1,5 +1,5 @@
 import { Counter } from "./mod.ts";
-import { assertEquals } from "./deps.ts";
+import { assertEquals } from "./test_deps.ts";
 
 Deno.test(function counter() {
   const letters = "a a a b b c".split(" ");

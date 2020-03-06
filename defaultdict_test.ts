@@ -1,5 +1,5 @@
 import { DefaultDict } from "./mod.ts";
-import { assertEquals } from "./deps.ts";
+import { assertEquals } from "./test_deps.ts";
 
 Deno.test(function defaultdict() {
   const d = new DefaultDict(0);
