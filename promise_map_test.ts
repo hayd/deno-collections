@@ -12,8 +12,8 @@ Deno.test(async function pmap() {
       await delay(50);
       if (i === 7) throw new Error();
     },
-    { concurrency: 3 }
-  ).catch(err => {
+    { concurrency: 3 },
+  ).catch((err) => {
     caught = true;
   });
   const elapsed = (+new Date()) - startTime;

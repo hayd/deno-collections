@@ -1,4 +1,4 @@
-// Copyright 2018-2019 the Deno authors. All rights reserved. MIT license.
+// Copyright 2018-2020 the Deno authors. All rights reserved. MIT license.
 
 /*
  * Stack is a first-in-last-out data structure.
@@ -13,4 +13,16 @@ export interface Stack<T> {
   pop(): T | undefined;
   push(value: T): void;
   length?: number;
+}
+
+export class Stack<T> implements Iterable<T> {
+  private _array: T[];
+
+  clear(): void {
+    this._array = [];
+  }
+
+  [Symbol.iterator]() {
+    return this._array[Symbol.iterator]();
+  }
 }
