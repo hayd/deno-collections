@@ -29,8 +29,10 @@ export class DeferredQueue<T> {
         throw Error("maxQueueSize must be > 0");
       } else {
         this._queue = new Deque<Deferred<T>>(
-          { size: options.maxQueueSize!, throwIfFull: true }
-        ) as Queue<Deferred<T>>;
+          { size: options.maxQueueSize!, throwIfFull: true },
+        ) as Queue<
+          Deferred<T>
+        >;
       }
     } else {
       this._queue = [];
@@ -90,12 +92,12 @@ export class DeferredQueue<T> {
   [Symbol.asyncIterator]() {
     const that = this;
     return {
-      next: async function(): Promise<any> {
+      next: async function (): Promise<any> {
         return {
           done: false,
-          value: await that.pop()
+          value: await that.pop(),
         };
-      }
+      },
     };
   }
 }
