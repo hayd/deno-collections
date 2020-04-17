@@ -10,19 +10,19 @@
  */
 
 export interface Stack<T> {
-	pop(): T | undefined;
-	push(value: T): void;
-	length?: number;
+  pop(): T | undefined;
+  push(value: T): void;
+  length?: number;
 }
 
 export class Stack<T> implements Iterable<T> {
-	private _array: T[];
+  private _array: T[];
 
-	clear(): void {
-		this._array = [];
-	}
+  clear(): void {
+    this._array = [];
+  }
 
-	[Symbol.iterator]() {
-		return this._array[Symbol.iterator]();
-	}
+  [Symbol.iterator]() {
+    return this._array[Symbol.iterator]();
+  }
 }

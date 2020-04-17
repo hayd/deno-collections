@@ -16,7 +16,7 @@ async function handler(req: ServerRequest, conn: Connection) {
 }
 
 const pool = new DeferredQueue<Connection>(
-  { pool: [new Connection(), new Connection()] }
+  { pool: [new Connection(), new Connection()] },
 );
 const s = serve({ port: 8000 });
 
